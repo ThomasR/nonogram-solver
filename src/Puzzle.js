@@ -11,8 +11,14 @@ class Puzzle {
   }
 
   mapData(data) {
-    this.rowHints = clone(data.rows);
-    this.columnHints = clone(data.columns);
+    let cleanClone = hints => hints.map((h, i) => {
+      if (h.length === 1 && h[0] === 0) {
+        return [];
+      }
+      return clone(h);
+    });
+    this.rowHints = cleanClone(data.rows);
+    this.columnHints = cleanClone(data.columns);
     this.height = this.rowHints.length;
     this.width = this.columnHints.length;
     if (data.content) {
@@ -116,9 +122,6 @@ class Puzzle {
         get() {
           let isOk = (line, hints) => {
             let actual = line.join('').split(/(?:-1)+/g).map(x => x.length).filter(x => x);
-            if (actual.length === 0) {
-              actual.push(0);
-            }
             return actual.length === hints.length && actual.every((x, i) => x === hints[i]);
           };
           return (
