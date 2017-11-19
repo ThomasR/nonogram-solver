@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/nonogram-solver.svg)](https://www.npmjs.com/package/nonogram-solver)
 
-Solves black and white Nonogram puzzles (alsko known as Griddlers, Picross, Hanjie, Japanese Crosswords). Typically requires less than a second.
-
+Solves black and white Nonogram puzzles (also known as Griddlers, Picross, Hanjie, Japanese Crosswords).  
+Can solve large puzzles (>100x100) with low memory usage. Typically requires less than a second for small to medium puzzles.
 
 ## Installation
 
@@ -22,14 +22,12 @@ Put your input file to `puzzles/input.json`*, then run
 ``` bash
 $ nonogram-solver
 ``` 
-
-<sub>* There will be a CLI soon allowing arbitrary file names</sub>
  
 ### Input format
 
 The input file must be valid JSON containing a `rows` and a `columns` attribute and an optional `content` attribute.
 
-```
+``` js
 {
   "rows": [[1], [2]],
   "columns":  [[2], [1]],
@@ -43,6 +41,7 @@ It is an error if `content` contains not exactly `rows.length*columns.length` el
 ### Output
 
 If your puzzle is solvable, the solution will be printed to the command line and saved as an svg file to the `output` folder.  
+
 ```
 Puzzle solved!
                                                            1
@@ -196,20 +195,24 @@ Additionally, it prints the current `content` in this case (omitted in the sampl
 
 Some samples are included in the `puzzles` folder. If you want more, run
 
-```
+``` bash
 $ nonogram-dl-samples
 ```
 
 This will download selected puzzles from [nonograms.org](http://www.nonograms.org/). The files themselves are not included in this package for copyright reasons.
 
-Now you can copy each to `puzzles/input.json`.
+Now you can copy each to `puzzles/input.json`*.
 
 ## How does it work?
 
 See [internals.md](./doc/internals.md).
 
 
-
 [![License: Apache 2.0](https://img.shields.io/github/license/ThomasR/nonogram-solver.svg)](LICENSE)
 
 [node]: https://nodejs.org/
+
+
+___
+
+<sub>* There will be a CLI soon allowing arbitrary file names</sub>

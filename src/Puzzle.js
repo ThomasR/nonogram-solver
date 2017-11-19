@@ -116,6 +116,9 @@ class Puzzle {
         get() {
           let isOk = (line, hints) => {
             let actual = line.join('').split(/(?:-1)+/g).map(x => x.length).filter(x => x);
+            if (actual.length === 0) {
+              actual.push(0);
+            }
             return actual.length === hints.length && actual.every((x, i) => x === hints[i]);
           };
           return (
