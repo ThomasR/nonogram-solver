@@ -11,7 +11,7 @@ class Puzzle {
   }
 
   mapData(data) {
-    let cleanClone = hints => hints.map((h, i) => {
+    let cleanClone = hints => hints.map(h => {
       if (h.length === 1 && h[0] === 0) {
         return [];
       }

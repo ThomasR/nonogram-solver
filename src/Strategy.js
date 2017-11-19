@@ -73,6 +73,7 @@ class Strategy {
   }
 
   /**
+   * @private
    * Run one solver on the puzzle
    * @param {Puzzle} puzzle The puzzle to solve
    * @param {Solver} solver The solver to use
@@ -182,6 +183,7 @@ class Strategy {
   }
 
   /**
+   * @private
    * Run trial and error iteration
    * @param {Puzzle} puzzle The puzzle to solve
    * @param {boolean} randomize As above

@@ -22,6 +22,7 @@ The push solver is way faster than the brute force solver but still relatively s
 
 You can read mode about this idea at [http://www.lancaster.ac.uk/%7Esimpsons/nonogram/theory#fastcompl]().
 
+There number of solvers is not limited, so there might be more in the future.
 
 ## Iterating over all lines
 
