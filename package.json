@@ -1,7 +1,7 @@
 {
   "name": "nonogram-solver",
-  "version": "1.0.0",
-  "description": "Solver formatter for Nonograms (Griddlers, Picross, Hanjie, Japanese Crosswords)",
+  "version": "1.0.1",
+  "description": "Solver / formatter for Nonograms (Griddlers, Picross, Hanjie, Japanese Crosswords)",
   "keywords": [
     "nonogram",
     "griddler",
@@ -15,7 +15,7 @@
     "serialization"
   ],
   "homepage": "https://github.com/thomasr/nonogram-solver",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "author": "Thomas Rosenau <thomasr@fantasymail.de>",
   "main": "src/index.js",
   "bin": {

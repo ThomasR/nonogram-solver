@@ -13,7 +13,12 @@ module.exports = (inputFilename, outputFilename) => {
   strategy.solve(puzzle);
 
   if (puzzle.isFinished) {
-    console.log('Puzzle solved!');
+    if (puzzle.isSolved) {
+      console.log('Puzzle solved!');
+    } else {
+      console.log('Puzzle is unsolvable 😖');
+      process.exit(1);
+    }
   } else {
     console.log('Could not solve puzzle');
     console.log(JSON.stringify(puzzle.snapshot));
