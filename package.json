@@ -1,6 +1,6 @@
 {
   "name": "nonogram-solver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Solver / formatter for Nonograms (Griddlers, Picross, Hanjie, Japanese Crosswords)",
   "keywords": [
     "nonogram",
