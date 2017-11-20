@@ -1,5 +1,3 @@
-const readline = require('readline');
-
 const clone = x => JSON.parse(JSON.stringify(x));
 
 const hintSum = hints => hints.reduce((x, y, i) => x + y + (i ? 1 : 0));
@@ -59,25 +57,26 @@ const trimLine = (line, hints) => {
   return [line.slice(minIndex, maxIndex + 1), clonedHints, {left: line.slice(0, minIndex), right: line.slice(maxIndex + 1)}];
 };
 
-const restoreLine = (line, trimInfo) => {
-  return trimInfo.left.concat(line).concat(trimInfo.right);
-};
+const restoreLine = (line, trimInfo) => trimInfo.left.concat(line).concat(trimInfo.right);
 
-const sp = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-let spIndex = 0;
-let lastExecution;
 const spinner = {
-  spin: (stream = process.stderr) => {
-    let now = Date.now();
-    if (now - lastExecution < 42) {
+  steps: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+  index: 0,
+  lastExecution: 0,
+  spin: function (stream = process.stderr) {
+    if (!stream) {
       return;
     }
-    lastExecution = now;
-    readline.cursorTo(stream, 0);
-    stream.write(sp[spIndex] + ' ');
-    spIndex++;
-    if (spIndex >= sp.length) {
-      spIndex = 0;
+    let now = Date.now();
+    if (now - this.lastExecution < 42) {
+      return;
+    }
+    this.lastExecution = now;
+    stream.write('\x1b[1G');
+    stream.write(this.steps[this.index] + ' ');
+    this.index++;
+    if (this.index >= this.steps.length) {
+      this.index = 0;
     }
   }
 };

@@ -39,7 +39,18 @@ The output directory can be set with the `-o` Option. Use `-h` for help.
 ``` js
 const solve = require('nonogram-solver');
 
-solve('input.json', 'output.svg');
+let {status, puzzle} = solve('input.json');
+switch (status) {
+case -1:
+  console.log('Puzzle is unsolvable!😖');
+  break;
+case 0:
+  console.log('Could not solve puzzle!😞');
+  break;
+case 1:
+  console.log('Puzzle solved!😊');
+}
+console.log(puzzle.snapshot);
 ```
 
 ### Input format
