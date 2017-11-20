@@ -1,7 +1,8 @@
+const assert = require("assert");
+
 const ascii = require('./serializers/ascii');
 const util = require("./util");
 const Puzzle = require('./Puzzle');
-const assert = require("assert");
 
 const debugMode = process.env.hasOwnProperty('NONODEBUG');
 
@@ -163,7 +164,7 @@ class Strategy {
         }
 
         if (!debugMode) {
-          process.stdout.write('.');
+          util.spinner.spin();
         } else if (hasChanged) {
           console.log(`found ${newLine}`);
           console.log(ascii(puzzle));

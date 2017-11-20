@@ -9,7 +9,6 @@ class Puzzle {
     let initialState = this.mapData(data);
     this.initAccessors(initialState);
   }
-
   mapData(data) {
     let cleanClone = hints => hints.map(h => {
       if (h.length === 1 && h[0] === 0) {
@@ -21,13 +20,14 @@ class Puzzle {
     this.columnHints = cleanClone(data.columns);
     this.height = this.rowHints.length;
     this.width = this.columnHints.length;
+    this.checkConsistency(data);
     if (data.content) {
-      this.checkConsistency(data);
       this.originalContent = clone(data.content);
       return clone(data.content);
     }
     return Array(this.width * this.height).fill(0);
   }
+
 
   initAccessors(state) {
     const width = this.width;
@@ -138,11 +138,17 @@ class Puzzle {
     }
   }
 
-  checkConsistency({content}) {
-    let invalid = !content || !Array.isArray(content);
-    invalid = invalid || (content.length !== this.height * this.width);
-    invalid = invalid || !content.every(i => i === -1 || i === 0 || i === 1);
-    assert(!invalid, 'Invalid content data');
+  checkConsistency({rows, columns, content}) {
+    if (content) {
+      let invalid = !content || !Array.isArray(content);
+      invalid = invalid || (content.length !== this.height * this.width);
+      invalid = invalid || !content.every(i => i === -1 || i === 0 || i === 1);
+      assert(!invalid, 'Invalid content data');
+    }
+    let sum = a => a.reduce((x, y) => x + y, 0);
+    let rowSum = sum(rows.map(sum));
+    let columnSum = sum(columns.map(sum));
+    assert(rowSum === columnSum, 'Invalid hint data');
   }
 }
 

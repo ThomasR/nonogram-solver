@@ -17,12 +17,31 @@ $ npm install nonogram-solver
 
 ## Usage
 
-Put your input file to `puzzles/input.json`*, then run
+### Command line
+
+Put your input as a JSON file, then run
 
 ``` bash
-$ nonogram-solver
-``` 
- 
+$ nonogram-solver input.json
+```
+
+You can also pass multiple input files:
+
+``` bash
+$ nonogram-solver a.json b.json
+$ nonogram-solver *.json
+```
+
+The output directory can be set with the `-o` Option. Use `-h` for help.
+
+### As an npm module
+
+``` js
+const solve = require('nonogram-solver');
+
+solve('input.json', 'output.svg');
+```
+
 ### Input format
 
 The input file must be valid JSON containing a `rows` and a `columns` attribute and an optional `content` attribute.
@@ -40,7 +59,7 @@ It is an error if `content` contains not exactly `rows.length*columns.length` el
 
 ### Output
 
-If your puzzle is solvable, the solution will be printed to the command line and saved as an svg file to the `output` folder.  
+If your puzzle is solvable, the solution will be printed to the command line and saved as an svg file to the `output` folder (can be overridden with the `-o` option).
 
 ```
 Puzzle solved!
@@ -114,7 +133,7 @@ Output saved to output/result.svg.
 
 ![Solved puzzle](./doc/solved.png)
 
-The same is true if `nonogram-solver` cannot solve your puzzle, but this time the output is going to be a partially finished puzzle. 
+The same is true if `nonogram-solver` cannot solve your puzzle, but this time the output is going to be a partially finished puzzle.
 
 ```
 Could not solve puzzle
@@ -201,7 +220,7 @@ $ nonogram-dl-samples
 
 This will download selected puzzles from [nonograms.org](http://www.nonograms.org/). The files themselves are not included in this package for copyright reasons.
 
-Now you can copy each to `puzzles/input.json`*.
+Now you can run `nonogram-solver puzzles/nonograms.org/*.json`.
 
 ## How does it work?
 
@@ -211,8 +230,3 @@ See [internals.md](./doc/internals.md).
 [![License: Apache 2.0](https://img.shields.io/github/license/ThomasR/nonogram-solver.svg)](LICENSE)
 
 [node]: https://nodejs.org/
-
-
-___
-
-<sub>* There will be a CLI soon allowing arbitrary file names</sub>

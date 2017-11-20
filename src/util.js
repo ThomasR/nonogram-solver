@@ -1,3 +1,5 @@
+const readline = require('readline');
+
 const clone = x => JSON.parse(JSON.stringify(x));
 
 const hintSum = hints => hints.reduce((x, y, i) => x + y + (i ? 1 : 0));
@@ -61,9 +63,29 @@ const restoreLine = (line, trimInfo) => {
   return trimInfo.left.concat(line).concat(trimInfo.right);
 };
 
+const sp = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+let spIndex = 0;
+let lastExecution;
+const spinner = {
+  spin: (stream = process.stderr) => {
+    let now = Date.now();
+    if (now - lastExecution < 42) {
+      return;
+    }
+    lastExecution = now;
+    readline.cursorTo(stream, 0);
+    stream.write(sp[spIndex] + ' ');
+    spIndex++;
+    if (spIndex >= sp.length) {
+      spIndex = 0;
+    }
+  }
+};
+
 module.exports = {
   clone,
   trimLine,
   restoreLine,
+  spinner,
   hintSum
 };
