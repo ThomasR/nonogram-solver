@@ -20,7 +20,7 @@ However, this method is slow, so in practice, we use another method which I call
 
 The push solver is way faster than the brute force solver but still relatively successful.
 
-You can read mode about this idea at [http://www.lancaster.ac.uk/%7Esimpsons/nonogram/theory#fastcompl]().
+You can read more about this idea [here]( http://www.lancaster.ac.uk/%7Esimpsons/nonogram/theory#fastcompl).
 
 
 ## Iterating over all lines
