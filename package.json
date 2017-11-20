@@ -39,8 +39,7 @@
   "devDependencies": {
     "eslint": "^4.11.0",
     "expect": "^21.2.1",
-    "mocha": "^4.0.1",
-    "request": "^2.83.0"
+    "mocha": "^4.0.1"
   },
   "engines": {
     "node": ">=8.0.0"
