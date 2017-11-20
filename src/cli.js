@@ -47,8 +47,7 @@ let run = inputFile => {
   switch (status) {
   case -1:
     console.error('😖 Puzzle is unsolvable');
-    process.exit(1);
-    break;
+    return;
   case 0:
     console.error('😞 Could not solve puzzle');
     console.log(JSON.stringify(puzzle.snapshot));
