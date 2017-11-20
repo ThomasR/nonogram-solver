@@ -22,14 +22,14 @@ $ npm install nonogram-solver
 Put your input as a JSON file, then run
 
 ``` bash
-$ nonogram-solver input.json
+$ npx nonogram-solver input.json
 ```
 
 You can also pass multiple input files:
 
 ``` bash
-$ nonogram-solver a.json b.json
-$ nonogram-solver *.json
+$ npx nonogram-solver a.json b.json
+$ npx nonogram-solver *.json
 ```
 
 The output directory can be set with the `-o` Option. Use `-h` for help.
@@ -39,7 +39,19 @@ The output directory can be set with the `-o` Option. Use `-h` for help.
 ``` js
 const solve = require('nonogram-solver');
 
-solve('input.json', 'output.svg');
+let {status, puzzle} = solve('input.json');
+
+switch (status) {
+case -1:
+  console.log('Puzzle is unsolvable!😖');
+  break;
+case 0:
+  console.log('Could not solve puzzle!😞');
+  break;
+case 1:
+  console.log('Puzzle solved!😊');
+}
+console.log(puzzle.snapshot);
 ```
 
 ### Input format
@@ -215,7 +227,7 @@ Additionally, it prints the current `content` in this case (omitted in the sampl
 Some samples are included in the `puzzles` folder. If you want more, run
 
 ``` bash
-$ nonogram-dl-samples
+$ npx nonogram-dl-samples
 ```
 
 This will download selected puzzles from [nonograms.org](http://www.nonograms.org/). The files themselves are not included in this package for copyright reasons.

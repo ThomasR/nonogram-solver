@@ -1,30 +1,22 @@
 const fs = require('fs');
-const path = require('path');
 
 const allSolvers = require('./allSolvers');
-const ascii = require('./serializers/ascii');
-const svg = require('./serializers/svg');
 const Puzzle = require('./Puzzle');
 let Strategy = require('./Strategy');
 
-module.exports = (inputFilename, outputFilename) => {
+if (require.main === module) {
+  console.error('Do not run index.js. Try running cli.js instead');
+  process.exit(1);
+}
+
+module.exports = inputFilename => {
   let puzzleData = fs.readFileSync(inputFilename, 'utf-8');
   let puzzle = new Puzzle(puzzleData);
   let strategy = new Strategy(allSolvers);
   strategy.solve(puzzle);
-
+  let status = 0;
   if (puzzle.isFinished) {
-    if (puzzle.isSolved) {
-      console.log('Puzzle solved!😊');
-    } else {
-      console.log('Puzzle is unsolvable!😖');
-      process.exit(1);
-    }
-  } else {
-    console.log('Could not solve puzzle!☹️');
-    console.log(JSON.stringify(puzzle.snapshot));
+    status = puzzle.isSolved ? 1 : -1;
   }
-  console.log(ascii(puzzle));
-  fs.writeFileSync(outputFilename, svg(puzzle));
-  console.log(`Output saved to ${path.relative(process.cwd(), outputFilename)}.`);
+  return {status, puzzle};
 };

@@ -24,7 +24,7 @@ const run = args => args.map(a => +a).forEach((id, i) => {
         }
       });
     });
-  }, 10 * i);
+  }, 30 * i);
 });
 
 if (require.main === module) {
