@@ -17,6 +17,7 @@
   "homepage": "https://github.com/thomasr/nonogram-solver",
   "license": "Apache-2.0",
   "author": "Thomas Rosenau <thomasr@fantasymail.de>",
+  "files": ["src", "puzzles/*.json", "puzzles/**/*.js"],
   "main": "src/index.js",
   "bin": {
     "nonogram-solver": "src/cli.js",

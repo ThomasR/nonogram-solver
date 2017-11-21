@@ -34,7 +34,7 @@ Once a solver has visited a line, it does not need to revisit that line until th
 
 ## Trial and Error
 
-It may happen that a puzzle with a unique solution cannot be solved with the abovementioned approach. In this case, `nonogram-solver` uses the partial solution and randomly fills in `█` in an empty cell. Then, it starts the whole solution process with that new puzzle, and if a contradiction is encountered, that cell is known to be empty.
+It may happen that even puzzles with a unique solution cannot be solved with the abovementioned approach. In this case, `nonogram-solver` uses the partial solution and randomly fills in `█` in an empty cell. Then, it starts the whole solution process with that new puzzle, and if a contradiction is encountered, that cell is known to be empty.
 
 This continues until an iteration limit is reached or the puzzle is solved. 
 
