@@ -1,6 +1,6 @@
 {
   "name": "nonogram-solver",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Solver / formatter for Nonograms (Griddlers, Picross, Hanjie, Japanese Crosswords)",
   "keywords": [
     "nonogram",
@@ -19,6 +19,8 @@
   "author": "Thomas Rosenau <thomasr@fantasymail.de>",
   "files": [
     "src",
+    "doc/!(*.svg)",
+    "test",
     "puzzles/*.json",
     "puzzles/**/*.js"
   ],
