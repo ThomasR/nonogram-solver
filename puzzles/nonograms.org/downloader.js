@@ -1,9 +1,7 @@
 const fs = require("fs");
+const http = require('http');
 const path = require("path");
 const vm = require('vm');
-
-const request = require('request');
-
 
 const dataRE = /d *= *(\[.*?);/;
 const titleRE = /«(.+?)»/;
@@ -11,9 +9,9 @@ const titleRE = /«(.+?)»/;
 module.exports = (id, callback) => {
 
   console.log(`Downloading puzzle ${id}`);
-  const getCB = (error, response, body) => {
-    if (error || response.statusCode !== 200) {
-      throw error || new Error(`statusCode: ${response.statusCode} while downloading puzzle ${id}`);
+  const getCB = (error, {statusCode}, body) => {
+    if (error || statusCode !== 200) {
+      throw error || new Error(`statusCode: ${statusCode} while downloading puzzle ${id}`);
     }
     let d = body.match(dataRE)[1];
     let title = body.match(titleRE)[1];
@@ -24,7 +22,7 @@ module.exports = (id, callback) => {
     sandbox.global = sandbox;
     vm.createContext(sandbox);
 
-    fs.readFile(path.join(__dirname, 'unscrambler.js'), {encoding: 'utf-8'}, (err, src) => {
+    fs.readFile(path.resolve(__dirname, 'unscrambler.js'), {encoding: 'utf-8'}, (err, src) => {
       if (err) {
         throw err;
       }
@@ -38,5 +36,15 @@ module.exports = (id, callback) => {
     });
   };
 
-  request.get(`http://www.nonograms.org/nonograms/i/${id}`, getCB);
+  http.get(`http://www.nonograms.org/nonograms/i/${id}`, (response) => {
+    let data = '';
+    response.on('data', chunk => {
+      data += chunk;
+    });
+    response.on('end', () => {
+      getCB(null, response, data);
+    });
+  }).on('error', (err) => {
+    getCB(err);
+  });
 };
