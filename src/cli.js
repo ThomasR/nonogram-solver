@@ -14,14 +14,21 @@ const help = `
 
     $ nonogram-solver world.json
     $ nonogram-solver a.json b.json
-    $ nonogram-solver -o ~/nono puzzles/*.json
+    $ nonogram-solver -r 3 -d -o ~/nono puzzles/*.json
+
+  Notes:
+
+    Increasing the recursion depth value (-r) may dramatically slow down or speed up the solution process, depending on the puzzle.
+    It has no effect on puzzles that don't require trial and error. For details, see
+    https://github.com/ThomasR/nonogram-solver/blob/develop/doc/internals.md#trial-and-error
 `;
 
 program
-  .version(version)
   .usage('[options] <file ...>')
+  .version(version)
   .option('-o, --output-dir <dir>', `Output directory. Will be created if it does not exist. Defaults to "${defaultOutputFolder}".`, defaultOutputFolder)
-  .option('-d, --debug', 'Set debug mode')
+  .option('-r, --recursion-depth <n>', 'Set recursion depth when brute forcing puzzle. Defaults to 0.', parseInt, 0)
+  .option('-d, --debug', 'Run in debug mode')
   .on('--help', () => {
     console.log(help);
   })

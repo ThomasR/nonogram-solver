@@ -4,6 +4,7 @@ const util = require("./util");
 const Puzzle = require('./Puzzle');
 
 const debugMode = require('commander').debug;
+const { recursionDepth: maxRecursionLevel } = require('commander');
 
 /**
  * Strategy for solving a puzzle by applying line solvers repeatedly
@@ -187,10 +188,9 @@ class Strategy {
    * Run trial and error iteration
    * @param {Puzzle} puzzle The puzzle to solve
    * @param {boolean} randomize As above
-   * @param {number} recursionDepth (internal) keep track of recursion depth
+   * @param {number} currentRecursionLevel (internal) keep track of recursion depth
    */
-  guessAndConquer(puzzle, randomize, recursionDepth = 0) {
-    const maxRecursion = 2;
+  guessAndConquer(puzzle, randomize, currentRecursionLevel = 0) {
     const maxGuessCount = 100;
     if (puzzle.isFinished) {
       return puzzle.isSolved ? puzzle : null;
@@ -241,7 +241,7 @@ class Strategy {
           return trial;
         }
         // No progress
-        if (recursionDepth >= maxRecursion) {
+        if (currentRecursionLevel >= maxRecursionLevel) {
           // reset and just try the next index
           snapshot[index] = 0;
           continue;
@@ -253,15 +253,15 @@ class Strategy {
           content: snapshot
         });
         if (debugMode) {
-          console.log(`>>> Recursing to level ${recursionDepth + 1}`);
+          console.log(`>>> Recursing to level ${currentRecursionLevel + 1}`);
         }
-        let result = this.guessAndConquer(anotherTry, randomize, recursionDepth + 1);
+        let result = this.guessAndConquer(anotherTry, randomize, currentRecursionLevel + 1);
         if (debugMode) {
-          console.log(`<<< Done recursing level ${recursionDepth + 1}`);
+          console.log(`<<< Done recursing level ${currentRecursionLevel + 1}`);
         }
         if (result) {
           if (debugMode) {
-            console.log(`[${recursionDepth}] Successfully guessed square ${index}=1`);
+            console.log(`[${currentRecursionLevel}] Successfully guessed square ${index}=1`);
           }
           return result;
         }

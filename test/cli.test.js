@@ -102,7 +102,7 @@ describe('CLI', () => {
       expect(stdout).toMatch(/^\s*1 1 1 1 1 1 1 1\s*1 1 1 1 *░x░x░x░x░x░x░x░\s*xxxxxxxxxxxxxxx\s*1 1 1 1 *░x░x░x░x░x░x░x░$/m);
       fs.readFile(path.resolve(__dirname, 'output', 'ambiguousPuzzle.svg'), done);
     });
-  }).timeout(20 * 1000);
+  });
 
   it('allows setting the output folder', done => {
     let filename = path.resolve(__dirname, 'resources', 'easyPuzzle.json');
@@ -150,4 +150,24 @@ describe('CLI', () => {
       done();
     });
   });
+
+  it('allows setting recursion depth', done => {
+    let filename = path.resolve(__dirname, 'resources', 'ambiguousPuzzle.json');
+    child_process.execFile(cli, ['-r', '2', filename], { cwd: __dirname }, (error, stdout, stderr) => {
+      if (error) {
+        done(error);
+        return;
+      }
+      expect(stderr).toMatch('Could not solve');
+      let filename = path.resolve(__dirname, 'resources', 'ambiguousPuzzle.json');
+      child_process.execFile(cli, ['-r', '3', filename], { cwd: __dirname }, (error, stdout, stderr) => {
+        if (error) {
+          done(error);
+          return;
+        }
+        expect(stderr).toMatch('solved');
+        done();
+      });
+    });
+  }).timeout(20 * 1000);
 });

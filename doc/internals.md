@@ -40,6 +40,8 @@ This continues until an iteration limit is reached or the puzzle is solved.
 
 Since the trial and error stage uses randomization, it might happen that certain puzzles are sometimes solved and sometimes not.
 
+When the `-r` parameter is set, this method uses recursion up to the given depth. For example, the included sample files include `puzzles/ambiguous.json`, which requires `-r 3` or more.
+
 ## Debug Mode
 
 Want to know what exactly is going on behind the scenes? Use the `-d` command line flag to launch in debug mode (produces a **lot** of output).
