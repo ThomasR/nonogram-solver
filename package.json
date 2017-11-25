@@ -17,7 +17,11 @@
   "homepage": "https://github.com/thomasr/nonogram-solver",
   "license": "Apache-2.0",
   "author": "Thomas Rosenau <thomasr@fantasymail.de>",
-  "files": ["src", "puzzles/*.json", "puzzles/**/*.js"],
+  "files": [
+    "src",
+    "puzzles/*.json",
+    "puzzles/**/*.js"
+  ],
   "main": "src/index.js",
   "bin": {
     "nonogram-solver": "src/cli.js",
@@ -30,7 +34,7 @@
   "repository": "thomasr/nonogram-solver",
   "scripts": {
     "test": "mocha",
-    "coverage": "istanbul cover --include-all-sources true node_modules/.bin/_mocha -- --recursive --check-leaks --reporter spec test/"
+    "coverage": "nyc --all --reporter=text --reporter=lcov npm test"
   },
   "dependencies": {
     "assert": "^1.4.1",
@@ -41,8 +45,8 @@
   "devDependencies": {
     "eslint": "^4.11.0",
     "expect": "^21.2.1",
-    "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
     "rimraf": "^2.6.2"
   },
   "engines": {
