@@ -133,4 +133,21 @@ describe('CLI', () => {
       });
     });
   });
+
+  it('supports debug mode', done => {
+    let filename = path.resolve(__dirname, 'resources', 'easyPuzzle.json');
+    child_process.execFile(cli, ['-d', filename], { cwd: __dirname }, (error, stdout, stderr) => {
+      if (error) {
+        done(error);
+        return;
+      }
+      expect(stdout).toMatch('Running solver 0 on row 0');
+      expect(stdout).toMatch('Must revisit column 0');
+      expect(stdout).toMatch('Solution sequence:');
+      expect(stdout).toMatch(/Time elapsed: \d+ms/);
+      expect(stdout).toMatch(/Runs.*: \[\d+(, *\d+)*]/);
+      expect(stderr).toMatch('solved');
+      done();
+    });
+  });
 });

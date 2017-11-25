@@ -1,10 +1,10 @@
+const assert = require("assert");
+
 const util = require('../util');
 const findGapDistributions = require('../gapDistributor');
 const pushSolver = require('./pushSolver');
-const assert = require("assert");
 
-const debugMode = process.env.hasOwnProperty('NONODEBUG');
-
+const debugMode = require('commander').debug;
 const cacheLimits = [2, 20];
 
 /**

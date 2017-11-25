@@ -3,7 +3,7 @@ const assert = require("assert");
 const util = require("./util");
 const Puzzle = require('./Puzzle');
 
-const debugMode = process.env.hasOwnProperty('NONODEBUG');
+const debugMode = require('commander').debug;
 
 /**
  * Strategy for solving a puzzle by applying line solvers repeatedly

@@ -5,7 +5,6 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const path = require('path');
 
-const runOnFile = require('./index');
 const version = require('../package.json').version;
 
 const defaultOutputFolder = 'output';
@@ -22,6 +21,7 @@ program
   .version(version)
   .usage('[options] <file ...>')
   .option('-o, --output-dir <dir>', `Output directory. Will be created if it does not exist. Defaults to "${defaultOutputFolder}".`, defaultOutputFolder)
+  .option('-d, --debug', 'Set debug mode')
   .on('--help', () => {
     console.log(help);
   })
@@ -30,6 +30,9 @@ program
 if (!program.args.length) {
   program.help(); // exits
 }
+
+// must be after program.parse()
+const runOnFile = require('./index');
 
 let targetDir = path.resolve(process.cwd(), program.outputDir);
 

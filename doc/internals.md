@@ -42,4 +42,4 @@ Since the trial and error stage uses randomization, it might happen that certain
 
 ## Debug Mode
 
-Want to know what exactly is going on behind the scenes? Set the environment variable `NONODEBUG` to launch in debug mode (produces a **lot** of output). 
+Want to know what exactly is going on behind the scenes? Use the `-d` command line flag to launch in debug mode (produces a **lot** of output).
