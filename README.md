@@ -1,6 +1,9 @@
 # Nonogram Solver
 
 [![npm version](https://img.shields.io/npm/v/nonogram-solver.svg)](https://www.npmjs.com/package/nonogram-solver)
+[![Build Status](https://img.shields.io/travis/ThomasR/nonogram-solver.svg)](https://travis-ci.org/ThomasR/nonogram-solver)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/ThomasR/nonogram-solver.svg)](https://codeclimate.com/github/ThomasR/nonogram-solver/coverage)
+[![Code Climate](https://img.shields.io/codeclimate/github/ThomasR/nonogram-solver.svg)](https://codeclimate.com/github/ThomasR/nonogram-solver/code)
 
 Solves black and white Nonogram puzzles (also known as Griddlers, Picross, Hanjie, Japanese Crosswords).  
 Can solve large puzzles (>100x100) with low memory usage. Typically requires less than a second for small to medium puzzles.
