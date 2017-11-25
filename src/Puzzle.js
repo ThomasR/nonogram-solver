@@ -1,5 +1,7 @@
-const assert = require("assert");
+const assert = require('assert');
 const clone = require('./util').clone;
+const ascii = require('./serializers/ascii');
+const svg = require('./serializers/svg');
 
 class Puzzle {
   constructor(data) {
@@ -135,7 +137,16 @@ class Puzzle {
 
     this.import = function(puzzle) {
       state = clone(puzzle.snapshot);
-    }
+    };
+
+    this.toJSON = function() {
+      return {
+        columns: this.columnHints,
+        rows: this.rowHints,
+        content: state
+      }
+    };
+
   }
 
   checkConsistency({rows, columns, content}) {
@@ -149,6 +160,14 @@ class Puzzle {
     let rowSum = sum(rows.map(sum));
     let columnSum = sum(columns.map(sum));
     assert(rowSum === columnSum, 'Invalid hint data');
+  }
+
+  inspect() { // called by console.log
+    return ascii(this);
+  }
+
+  get svg() {
+    return svg(this);
   }
 }
 

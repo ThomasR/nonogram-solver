@@ -1,6 +1,5 @@
 const assert = require("assert");
 
-const ascii = require('./serializers/ascii');
 const util = require("./util");
 const Puzzle = require('./Puzzle');
 
@@ -167,7 +166,7 @@ class Strategy {
           util.spinner.spin();
         } else if (hasChanged) {
           console.log(`found ${newLine}`);
-          console.log(ascii(puzzle));
+          console.log(puzzle);
           console.log(`Must revisit ${onRow ? 'column' : 'row'}${changedLines.length > 1 ? 's' : ''} ${changedLines.join(',')}`);
           solutionSequence.push(`(${solverIndex})${onRow ? 'r' : 'c'}${i}[${changedLines.join(',')}]`);
         }

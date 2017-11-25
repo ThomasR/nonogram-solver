@@ -6,8 +6,6 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 
 const runOnFile = require('./index');
-const ascii = require('./serializers/ascii');
-const svg = require('./serializers/svg');
 const version = require('../package.json').version;
 
 const defaultOutputFolder = 'output';
@@ -50,7 +48,7 @@ let run = inputFile => {
     return;
   case 0:
     console.error('😞 Could not solve puzzle');
-    console.log(JSON.stringify(puzzle.snapshot));
+    console.log(JSON.stringify(puzzle));
     break;
   case 1:
     console.error('😊 Puzzle solved!');
@@ -58,10 +56,10 @@ let run = inputFile => {
   default:
     throw new Error('Unknown status');
   }
-  console.log(ascii(puzzle));
+  console.log(puzzle);
 
   let output = path.resolve(targetDir, `${baseFileName}.svg`);
-  fs.writeFileSync(output, svg(puzzle));
+  fs.writeFileSync(output, puzzle.svg);
   console.error(`Output saved to ${path.relative(process.cwd(), output)}.`);
 };
 
