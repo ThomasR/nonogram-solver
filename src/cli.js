@@ -59,8 +59,14 @@ let run = inputFile => {
   console.log(puzzle);
 
   let output = path.resolve(targetDir, `${baseFileName}.svg`);
-  fs.writeFileSync(output, puzzle.svg);
-  console.error(`Output saved to ${path.relative(process.cwd(), output)}.`);
+  let name = path.relative(process.cwd(), output);
+  fs.writeFile(output, puzzle.svg, error => {
+    if (error) {
+      console.error(`Could not save to ${name}`);
+      process.exit(1);
+    }
+    console.error(`Output saved to ${name}.`);
+  });
 };
 
 mkdirp(targetDir, err => {
