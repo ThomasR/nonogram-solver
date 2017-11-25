@@ -8,7 +8,7 @@ const downloader = require('./downloader');
 const run = args => args.map(a => +a).forEach((id, i) => {
   setTimeout(() => { // required to avoid server errors
     downloader(id, ({title, rows, columns}) => {
-      let fileName = path.join(__dirname, `${title}.json`);
+      let fileName = path.resolve(__dirname, `${title}.json`);
       let data = JSON.stringify({columns, rows});
       fs.readFile(fileName, (err) => {
         if (err) {

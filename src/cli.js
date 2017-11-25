@@ -33,11 +33,11 @@ if (!program.args.length) {
   program.help(); // exits
 }
 
-let targetDir = path.join(process.cwd(), program.outputDir);
+let targetDir = path.resolve(process.cwd(), program.outputDir);
 
 let run = inputFile => {
   console.error(`Processing ${inputFile}`);
-  let input = path.join(process.cwd(), inputFile);
+  let input = path.resolve(process.cwd(), inputFile);
   let baseFileName = path.basename(inputFile).replace(/\.json$/, '');
 
   let {status, puzzle} = runOnFile(input);
@@ -60,7 +60,7 @@ let run = inputFile => {
   }
   console.log(ascii(puzzle));
 
-  let output = path.join(targetDir, `${baseFileName}.svg`);
+  let output = path.resolve(targetDir, `${baseFileName}.svg`);
   fs.writeFileSync(output, svg(puzzle));
   console.error(`Output saved to ${path.relative(process.cwd(), output)}.`);
 };

@@ -22,7 +22,7 @@ module.exports = (id, callback) => {
     sandbox.global = sandbox;
     vm.createContext(sandbox);
 
-    fs.readFile(path.join(__dirname, 'unscrambler.js'), {encoding: 'utf-8'}, (err, src) => {
+    fs.readFile(path.resolve(__dirname, 'unscrambler.js'), {encoding: 'utf-8'}, (err, src) => {
       if (err) {
         throw err;
       }
