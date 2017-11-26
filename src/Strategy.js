@@ -270,7 +270,7 @@ class Strategy {
       } catch (e) {
         // A contradiction has occurred, which means we can be sure that `index`th cell is empty
         if (debugMode) {
-          console.log(`Successfully guessed square ${index}=-1 by contradiction`);
+          console.log(`[${currentRecursionLevel}] Successfully guessed square ${index}=-1 by contradiction`);
         }
         snapshot[index] = -1;
       }
