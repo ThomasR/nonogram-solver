@@ -7,6 +7,7 @@ const sampleIds = [
   2074,
   2684,
   3093,
+  3417,
   4388,
   4392,
   4436,
@@ -32,7 +33,8 @@ const sampleIds = [
   15466,
   15479,
   15500,
-  15527
+  15527,
+  15752
 ];
 
 downloadToFile(sampleIds);
