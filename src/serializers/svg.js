@@ -73,14 +73,20 @@ let drawHints = ({rowHints, columnHints}) => {
       <text x="${x + .5}" y="${y + .75}">${text}</text>`;
   };
   let result = '<g>';
-  rowHints.forEach((rowHints, y) => {
-    rowHints.forEach((hint, x) => {
-      result += drawHint({x:x - rowHints.length - .1, y, text:hint});
+  rowHints.forEach((hints, y) => {
+    if (!hints.length) {
+      hints = [0];
+    }
+    hints.forEach((hint, x) => {
+      result += drawHint({x:x - hints.length - .1, y, text:hint});
     });
   });
-  columnHints.forEach((colHints, x) => {
-    colHints.forEach((hint, y) => {
-      result += drawHint({x, y: y - colHints.length - .1, text:hint});
+  columnHints.forEach((hints, x) => {
+    if (!hints.length) {
+      hints = [0];
+    }
+    hints.forEach((hint, y) => {
+      result += drawHint({x, y: y - hints.length - .1, text:hint});
     });
   });
   result += '</g>';
