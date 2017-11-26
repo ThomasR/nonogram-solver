@@ -1,6 +1,6 @@
 const clone = x => JSON.parse(JSON.stringify(x));
 
-const hintSum = hints => hints.reduce((x, y, i) => x + y + (i ? 1 : 0));
+const hintSum = hints => hints.reduce((x, y, i) => x + y + (i ? 1 : 0), 0);
 
 const trimLine = (line, hints) => {
   let minIndex = line.indexOf(0);
