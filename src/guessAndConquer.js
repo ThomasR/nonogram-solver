@@ -4,14 +4,43 @@ const Puzzle = require('./Puzzle');
 
 const { recursionDepth: maxRecursionLevel, debugMode } = require('commander');
 
+let getNextIndex = (zeroIndexes, randomize) => {
+  if (randomize) {
+    let random = Math.floor(Math.random() * zeroIndexes.length);
+    return zeroIndexes.splice(random, 1)[0];
+  }
+  return zeroIndexes.shift();
+};
+
+let recurse = (strategy, currentRecursionLevel, snapshot, index, trial) => {
+  if (currentRecursionLevel >= maxRecursionLevel) {
+    // reset and just try the next index
+    snapshot[index] = 0;
+    return;
+  }
+  // try recursion
+  let anotherTry = new Puzzle({
+    rows: trial.rowHints,
+    columns: trial.columnHints,
+    content: snapshot
+  });
+  if (debugMode) {
+    console.log(`>>> Recursing to level ${currentRecursionLevel + 1}`);
+  }
+  let result = guessAndConquer(strategy, anotherTry, currentRecursionLevel + 1);
+  if (debugMode) {
+    console.log(`<<< Done recursing level ${currentRecursionLevel + 1}`);
+  }
+  return result;
+};
+
 /**
  * Run trial and error iteration
  * @param {Strategy} strategy The strategy to use
  * @param {Puzzle} puzzle The puzzle to solve
- * @param {boolean} randomize As above
  * @param {number} currentRecursionLevel (internal) keep track of recursion depth
  */
-const guessAndConquer = (strategy, puzzle, randomize, currentRecursionLevel = 0) => {
+let guessAndConquer = (strategy, puzzle, currentRecursionLevel = 0) => {
   const maxGuessCount = 100;
   if (puzzle.isFinished) {
     return puzzle.isSolved ? puzzle : null;
@@ -28,13 +57,7 @@ const guessAndConquer = (strategy, puzzle, randomize, currentRecursionLevel = 0)
   assert(zeroIndexes.length > 0, 'Contradiction in trial and error');
 
   for (let i = 0;  i < maxGuessCount && zeroIndexes.length; i++) {
-    let index;
-    if (randomize) {
-      let random = Math.floor(Math.random() * zeroIndexes.length);
-      index = zeroIndexes.splice(random, 1)[0];
-    } else {
-      index = zeroIndexes.shift();
-    }
+    let index = getNextIndex(zeroIndexes, strategy.randomize);
     // try and set the `index`th cell to 1, and create a new Puzzle from that
     snapshot[index] = 1;
     let trial = new Puzzle({
@@ -62,24 +85,7 @@ const guessAndConquer = (strategy, puzzle, randomize, currentRecursionLevel = 0)
         return trial;
       }
       // No progress
-      if (currentRecursionLevel >= maxRecursionLevel) {
-        // reset and just try the next index
-        snapshot[index] = 0;
-        continue;
-      }
-      // try recursion
-      let anotherTry = new Puzzle({
-        rows: trial.rowHints,
-        columns: trial.columnHints,
-        content: snapshot
-      });
-      if (debugMode) {
-        console.log(`>>> Recursing to level ${currentRecursionLevel + 1}`);
-      }
-      let result = guessAndConquer(strategy, anotherTry, randomize, currentRecursionLevel + 1);
-      if (debugMode) {
-        console.log(`<<< Done recursing level ${currentRecursionLevel + 1}`);
-      }
+      let result = recurse(strategy, currentRecursionLevel, snapshot, index, trial);
       if (result) {
         if (debugMode) {
           console.log(`[${currentRecursionLevel}] Successfully guessed square ${index}=1`);

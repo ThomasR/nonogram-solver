@@ -9,19 +9,20 @@ const debugMode = require('commander').debug;
 class Strategy {
   /**
    * @param {Array} solvers List of line solvers sorted by speed
+   * @param {boolean} randomize `false` to run trial and error in order. Defaults to `true`.
+   *     In practice, using random guessing mostly yields faster results.
    */
-  constructor(solvers) {
+  constructor(solvers, randomize = true) {
     this.solvers = solvers;
+    this.randomize = randomize;
   }
 
   /**
    * Solve the puzzle.
    * @param {Puzzle} puzzle The puzzle to solve
    * @param {boolean} withTrialAndError `false` to stop without trial and error. Defaults to `true`.
-   * @param {boolean} randomize `false` to run trial and error in order. Defaults to `true`.
-   *     In practice, using random guessing mostly yields faster results.
    */
-  solve(puzzle, withTrialAndError = true, randomize = true) {
+  solve(puzzle, withTrialAndError = true) {
     if (debugMode) {
       var start = Date.now();
       var statistics = Array(this.solvers.length).fill(0);
@@ -57,7 +58,7 @@ class Strategy {
       if (debugMode) {
         console.log('must start guessing');
       }
-      let deepResult = guessAndConquer(this, puzzle, randomize);
+      let deepResult = guessAndConquer(this, puzzle);
       if (deepResult) {
         puzzle.import(deepResult);
       }
