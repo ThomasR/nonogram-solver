@@ -1,5 +1,5 @@
 const fs = require("fs");
-const http = require('http');
+const https = require('https');
 const path = require("path");
 const vm = require('vm');
 
@@ -36,7 +36,7 @@ module.exports = (id, callback) => {
     });
   };
 
-  http.get(`http://www.nonograms.org/nonograms/i/${id}`, (response) => {
+  https.get(`https://www.nonograms.org/nonograms/i/${id}`, (response) => {
     let data = '';
     response.on('data', chunk => {
       data += chunk;
